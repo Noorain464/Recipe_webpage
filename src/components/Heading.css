@@ -1,0 +1,10 @@
+.heading{
+    display: flex;
+    flex-wrap: wrap;
+    font-weight:700;
+    font-size: 60px;
+    padding :25px;
+    margin-left:5em ;
+    margin-right:5em;
+    color: #5d2a42;
+}
