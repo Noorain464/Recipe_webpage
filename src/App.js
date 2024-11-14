@@ -1,14 +1,17 @@
-import './App.css';
-import Navbar from './components/Searchbar';
-import RecipeCard from './components/RecipeCard';
-import Heading from './components/Heading';
+import "./App.css";
+import RecipeDetails from "./components/RecipeDetails";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RecipeCards from "./components/RecipeCards";
 
 function App() {
   return (
-    <div className='App'>
-      <Heading/>
-      <Navbar/>
-      <RecipeCard />
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<RecipeCards />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

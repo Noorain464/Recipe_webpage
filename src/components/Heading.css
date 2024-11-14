@@ -3,8 +3,15 @@
     flex-wrap: wrap;
     font-weight:700;
     font-size: 60px;
-    padding :25px;
+    padding :55px;
+    margin-top: 0;
     margin-left:5em ;
     margin-right:5em;
     color: #5d2a42;
+    font-family: 'Berkshire Swash';
 }
+/* .recipebackground{
+    /* background-image: url('../assets/background.avif');
+    background-size: cover;
+    background-position: center;
+    height: 100%; */
