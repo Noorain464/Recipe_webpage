@@ -6,7 +6,10 @@ body{
 .recipedetails{
     display: flex;
     justify-content: space-between;
-    margin:5em;
+    margin-top: 0;
+    margin-left:5em;
+    margin-right:5em;
+    margin-bottom: 5em;
 }
 .left{
     display: flex;
