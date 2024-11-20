@@ -15,7 +15,7 @@ const RecipeDetails = () => {
                     apiKey: process.env.REACT_APP_RECIPE_API_KEY,
                 }
             });
-            console.log(response.data);
+            // console.log("RecipeDerails",response.data);
             setRecipeDetail(response.data);
         } catch (error) {
             console.error("Error fetching recipe details:", error);

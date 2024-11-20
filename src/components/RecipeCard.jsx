@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './RecipeCard.css';
 import { Link } from 'react-router-dom';
-const RecipeCard = ({searchQuery}) => {
+const RecipeCard = ({searchQuery,filters}) => {
     const [recipes, setRecipes] = useState([]);
     const [page, setPage] = useState(1);
     const [loading,setLoading] = useState(false);
@@ -14,10 +14,11 @@ const RecipeCard = ({searchQuery}) => {
             const response = await axios.get(recipeUrl,{
                 params: { 
                 apiKey : process.env.REACT_APP_RECIPE_API_KEY,
+                addRecipeInformation:true,
                 offset: (page - 1) * 10
                 } 
             });
-            console.log();
+            console.log("Recipes:",response.data.results);
             setRecipes(prevRecipes => [...prevRecipes, ...response.data.results]);
             setLoading(false);
         } catch (error) {
@@ -25,14 +26,16 @@ const RecipeCard = ({searchQuery}) => {
             setLoading(false);
         }
     };
+    
 
     useEffect(() => {
         getRecipes();
     }, [page]);
 
-    const filteredRecipes = recipes.filter(recipe =>
+    const searchedRecipes = recipes.filter(recipe =>
         recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 && !loading) {
             setPage(prevPage => prevPage + 1);
@@ -47,13 +50,18 @@ const RecipeCard = ({searchQuery}) => {
     return (
         <div className='recipe-cards'>
             <h1>Recipes</h1>
+            <div className='recipe-filter'>
+                {Object.keys(filters).map(key => (
+                    <p key={key}>{key}: {filters[key]}</p>
+                ))}
+            </div>
             <div className='recipe-grid'>
-                {filteredRecipes.map((recipe,index) => (
+                {searchedRecipes.length <= 0} :({searchedRecipes.map((recipe,index) => (
                     <Link to={`/recipe/${recipe.id}`} key={index} className='recipe-card'>
                         <img src={recipe.image} alt="" className='recipe-image' />
                         <h3 className='recipe-title'>{recipe.title}</h3>
                     </Link>
-                ))}
+                ))}) ? 
             </div>
             
         </div>
@@ -61,3 +69,4 @@ const RecipeCard = ({searchQuery}) => {
 };
 
 export default RecipeCard;
+
