@@ -12,7 +12,7 @@ const RecipeCards = () => {
     <div>
       <div className='header'>
         <Heading />
-        <Filter onApplyFilters={setFilters}/>
+        <Filter setFilters={setFilters}/>
         <Searchbar setSearchQuery={setSearchQuery} />
         <RecipeCard searchQuery={searchQuery} filters={filters} />
       </div>

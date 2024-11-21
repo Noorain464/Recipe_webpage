@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Filter = (onApplyFilters) => {
+const Filter = ({setFilters}) => {
   const [cuisine, setCuisine] = useState([]); 
   const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
   const [cookingTime, setCookingTime] = useState({ min: 0, max: 120 }); 
@@ -14,7 +14,7 @@ const Filter = (onApplyFilters) => {
     setDietaryRestrictions([]);
     setCookingTime({ min: 0, max: 120 });
     setExcludedIngredients([]);
-    onApplyFilters({});
+    setFilters({})
   };
 
   const applyFilters = () => {
@@ -24,7 +24,7 @@ const Filter = (onApplyFilters) => {
       cookingTime,
       excludedIngredients,
     };
-    onApplyFilters(filters);
+    setFilters(filters);
   };
 
   return (
@@ -120,6 +120,7 @@ const Filter = (onApplyFilters) => {
         </button>
       </div>
     </div>
+    
   );
 };
 

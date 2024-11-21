@@ -8,14 +8,15 @@ const RecipeCard = ({searchQuery,filters}) => {
     const [loading,setLoading] = useState(false);
     const getRecipes = async () => {
         setLoading(true);
+        console.log("Filters selcted : ",filters);
         // console.log(process.env.REACT_APP_RECIPE_API_KEY);
         const recipeUrl = "https://api.spoonacular.com/recipes/complexSearch";
         try {
             const response = await axios.get(recipeUrl,{
                 params: { 
                 apiKey : process.env.REACT_APP_RECIPE_API_KEY,
-                addRecipeInformation:true,
-                offset: (page - 1) * 10
+                    addRecipeInformation:true,
+                    offset: (page - 1) * 10,
                 } 
             });
             console.log("Recipes:",response.data.results);
@@ -30,11 +31,12 @@ const RecipeCard = ({searchQuery,filters}) => {
 
     useEffect(() => {
         getRecipes();
-    }, [page]);
+    }, [page,filters]);
 
     const searchedRecipes = recipes.filter(recipe =>
         recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    // const 
     
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 && !loading) {
@@ -52,16 +54,28 @@ const RecipeCard = ({searchQuery,filters}) => {
             <h1>Recipes</h1>
             <div className='recipe-filter'>
                 {Object.keys(filters).map(key => (
-                    <p key={key}>{key}: {filters[key]}</p>
+                    <p key={key}>
+                        {key}: 
+                        {typeof filters[key] === 'object' ? 
+                            `${filters[key].min} - ${filters[key].max} minutes` : 
+                            filters[key]
+                        }
+                    </p>
                 ))}
             </div>
+
             <div className='recipe-grid'>
-                {searchedRecipes.length <= 0} :({searchedRecipes.map((recipe,index) => (
+                {searchedRecipes.map((recipe,index) => (
                     <Link to={`/recipe/${recipe.id}`} key={index} className='recipe-card'>
                         <img src={recipe.image} alt="" className='recipe-image' />
                         <h3 className='recipe-title'>{recipe.title}</h3>
                     </Link>
-                ))}) ? 
+                ))}
+            </div>
+            <div>
+                <h1>
+                    
+                </h1>
             </div>
             
         </div>
